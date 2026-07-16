@@ -5,8 +5,8 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=8G
-#SBATCH --time=24:00:00                # (Increased to 12 hours since it does 8 runs back-to-back!)
-#SBATCH --array=0-39                   # 40 CPUs total
+#SBATCH --time=24:00:00                
+#SBATCH --array=0-39                   
 #SBATCH --output=logs/%x_%A_%a.out
 #SBATCH --error=logs/%x_%A_%a.err
 #SBATCH --mail-user=bradyholdren@ucsb.edu
@@ -74,7 +74,7 @@ for CURRENT_RUN in "${RUN_FOLDER[@]}"; do
             echo "ERROR: Could not find time in $f!"
             continue
         fi
-        #
+        
         CCS=$("$IMPACT_PATH" "$f" | grep "CCS 1" | awk '{print $(NF-1)}' || true)
         
         if [ ! -z "$CCS" ]; then
